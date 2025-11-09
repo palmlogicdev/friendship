@@ -17,6 +17,21 @@ function isEmpty(value) {
     return false
 }
 
+function checkExt(filename) {
+    const ext = filename.split('.').pop();
+    const allowed = ['jpg', 'gif', 'jpeg', 'png'];
+    
+    return allowed.includes(ext);
+}
+
+fileInput.addEventListener('change', () => {
+    const filename = fileInput.files[0].name;
+    if (!checkExt(filename)) {
+        swalAlert('Extension issue', 'โปรดตรวจสอบนามสกุลไฟล์รูปภาพของคุณ', 'error');
+        fileInput.value = "";
+    }
+})
+
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
@@ -59,6 +74,10 @@ form.addEventListener('submit', async (e) => {
                     Swal.close();
                     swalAlert('Inserted success', insertData.messageStatus.thai, 'success');
                     loadContent();
+
+                    message = "";
+                    name = "";
+                    fileInput.value = "";
                 } else {
                     Swal.close();
                     swalAlert('Failed', insertData.messageStatus.thai, 'error');
@@ -71,6 +90,10 @@ form.addEventListener('submit', async (e) => {
                 Swal.close();
                 swalAlert('Inserted success', insertData.messageStatus.thai, 'success');
                 loadContent();
+
+                message = "";
+                name = "";
+                fileInput.value = "";
             } else {
                 Swal.close();
                 swalAlert('Failed', insertData.messageStatus.thai, 'error');
