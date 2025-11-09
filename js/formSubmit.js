@@ -73,11 +73,11 @@ form.addEventListener('submit', async (e) => {
                 if (insertData.success) {
                     Swal.close();
                     swalAlert('Inserted success', insertData.messageStatus.thai, 'success');
-                    loadContent();
 
                     message = "";
                     name = "";
                     fileInput.value = "";
+                    loadContent();
                 } else {
                     Swal.close();
                     swalAlert('Failed', insertData.messageStatus.thai, 'error');
@@ -89,11 +89,11 @@ form.addEventListener('submit', async (e) => {
             if (insertData.success) {
                 Swal.close();
                 swalAlert('Inserted success', insertData.messageStatus.thai, 'success');
-                loadContent();
-
+                
                 message = "";
                 name = "";
                 fileInput.value = "";
+                loadContent();
             } else {
                 Swal.close();
                 swalAlert('Failed', insertData.messageStatus.thai, 'error');
