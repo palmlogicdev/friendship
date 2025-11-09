@@ -1,8 +1,8 @@
 import { swalAlert } from './swalAlert.js'
 import { upload } from './upload.js';
 import { createData } from './createData.js';
+import { loadContent } from './loadContent.js';
 
-const API_URL = 'http://localhost:3000/api';
 const apiKey = 'e4bb5b8a1bf55d83f82724c3551ed6de9a7644449f3df700f5b620972a069fbd';
 
 const form = document.getElementById('form');
@@ -58,6 +58,7 @@ form.addEventListener('submit', async (e) => {
                 if (insertData.success) {
                     Swal.close();
                     swalAlert('Inserted success', insertData.messageStatus.thai, 'success');
+                    loadContent();
                 } else {
                     Swal.close();
                     swalAlert('Failed', insertData.messageStatus.thai, 'error');
@@ -69,6 +70,7 @@ form.addEventListener('submit', async (e) => {
             if (insertData.success) {
                 Swal.close();
                 swalAlert('Inserted success', insertData.messageStatus.thai, 'success');
+                loadContent();
             } else {
                 Swal.close();
                 swalAlert('Failed', insertData.messageStatus.thai, 'error');

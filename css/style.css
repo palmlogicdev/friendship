@@ -14,9 +14,25 @@ body {
     background-color: blanchedalmond;
 }
 
+button#deleteFile {
+    border: none;
+    background: rgb(255, 59, 59);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: .2s;
+}
+
+button#deleteFile:hover {
+    background: rgb(182, 49, 49);
+}
+
 .container {
     margin: auto;
-    width: 1000px;
+    width: 1200px;
 }
 
 header h1.title-text {
@@ -56,7 +72,6 @@ section.form-container form .form-footer {
     display: flex;
     justify-content: space-between;
 }
-
 section.form-container form .form-footer .input-box label {
     background-color: #e7e7e7;
     padding: 5px;
@@ -77,13 +92,16 @@ section.form-container form .form-footer .input-box.left {
     align-items: center;
     gap: 10px;
 }
-
+section.form-container form .form-footer .right {
+    display: flex;
+}
 section.form-container form .form-footer .right input {
     border: 1px solid #ffd195;
     background: #ffd195;
-    padding: 2px 4px;
+    padding: 5px 10px;
     color: #000000;
     border-radius: 5px;
+    margin-right: 10px;
 }
 
 section.form-container form .form-footer .right input:focus {
@@ -106,6 +124,54 @@ section.form-container form .form-footer .right .submit-btn:hover {
     background: rgb(26, 107, 26);
 }
 
+section#messageList {
+    /* margin-top: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr; 
+    gap: 20px;
+    align-items: center;
+    justify-content: center; */
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+section#messageList .message-item {
+    display: flex;
+    background: linear-gradient(145deg, #f5c57b, #f7d8a1);
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    width: fit-content;
+    transition: transform 0.2s, box-shadow 0.2s;
+    height: 100%;
+}
+section#messageList .message-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+section#messageList .message-item img{
+    width: 200px;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+    margin-right: 10px;
+}
+section#messageList .message-item .text {
+    padding: 10px;
+}
+section#messageList .message-item .text h1 {
+    background: #ffd195;
+    padding: 5px;
+    font-size: 20px;
+    border-radius: 10px;
+    width: fit-content;
+}
+section#messageList .message-item .text p {
+    color: #333;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
 @media only screen and (max-width: 600px) {
     .container {
         width: 400px;
@@ -113,5 +179,23 @@ section.form-container form .form-footer .right .submit-btn:hover {
 
     header h1.title-text {
         font-size: 35px ;
+    }
+    section.form-container form .form-footer {
+        flex-direction: column;
+    }
+    section.form-container form .form-footer .input-box {
+        width: 100%;
+    }
+    section.form-container form .form-footer .right {
+        margin: 10px;
+    }
+    section.form-container form .form-footer .right input {
+        width: 300px;
+        margin-right: 10px;
+    }
+    section.form-container form .form-footer .right .submit-btn {
+        width: 120px;
+        font-size: 16px;
+        padding: 5px 5px;
     }
 }
