@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Friendship Board</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="title-text">FRIENDSHIP BOARD ❤️</h1>
+        </header>
+        <section class="form-container">
+            <form method="post" id="form" enctype="multipart/form-data">
+                <div class="textarea-box">
+                    <textarea name="text" id="message" placeholder="ข้อความ ความทรงจำของคุณ!"></textarea>
+                </div>
+                <div class="form-footer">
+                    <div class="input-box left">
+                        <label for="file">
+                            <img src="./image/icon/svg/bx-paperclip.svg">
+                        </label>
+                        <p id="nameOfFile"></p>
+                        <input type="file" name="picture" id="file" hidden>
+                    </div>
+                    <div class="right">
+                        <input type="text" id="name" name="nickname" placeholder="ชื่อเล่น....">
+                        <button type="submit" class="submit-btn">แปะข้อความ</button>
+                    </div>
+                </div>
+            </form>
+        </section>
+        <section id="messageList"></section>
+    </div>
+</body>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="module" src="./js/formSubmit.js"></script>
+</html>
