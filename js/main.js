@@ -1,8 +1,5 @@
 import { loadContent } from "./loadContent.js";
-import { createElement } from "./createElement.js";
 
-const messageList = document.getElementById('messageList');
-const API_URL = 'https://friendship-api.onrender.com/api';
 const fileInput = document.getElementById('file');
 const filedisplay = document.getElementById('nameOfFile');
 const deleteFileBtn = document.getElementById('deleteFile');

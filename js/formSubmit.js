@@ -1,9 +1,6 @@
 import { swalAlert } from './swalAlert.js'
-import { upload } from './upload.js';
-import { createData } from './createData.js';
 import { loadContent } from './loadContent.js';
-
-const apiKey = 'e4bb5b8a1bf55d83f82724c3551ed6de9a7644449f3df700f5b620972a069fbd';
+import { fetchAPI as FetchAPIClass} from './classes/fetchAPI.js';
 
 const form = document.getElementById('form');
 const messageInput = document.getElementById('message');
@@ -24,13 +21,11 @@ function checkExt(filename) {
     return allowed.includes(ext);
 }
 
-fileInput.addEventListener('change', () => {
-    const filename = fileInput.files[0].name;
-    if (!checkExt(filename)) {
-        swalAlert('Extension issue', 'โปรดตรวจสอบนามสกุลไฟล์รูปภาพของคุณ', 'error');
-        fileInput.value = "";
-    }
-})
+function resetValue() {
+    messageInput.value = "";
+    nameInput.value = "";
+    fileInput.value = "";
+}
 
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -51,7 +46,10 @@ form.addEventListener('submit', async (e) => {
     const formData = new FormData();
     formData.append('image', file);
 
+    const fetchAPI = new FetchAPIClass();
+
     try {
+
         Swal.fire({
             title: 'Loading.....',
             text: 'Please wait....',
@@ -61,46 +59,50 @@ form.addEventListener('submit', async (e) => {
                 Swal.showLoading();
             }
         });
+
         let filename = "";
         if (fileInput && fileInput.files.length > 0) {
+            console.log('Has file input');
             // call api upload photo
-            const uploadData = await upload(formData, apiKey);
-            if (uploadData.success) {
-                // call api create data
-                filename = uploadData.filename;
-                const insertData = await createData({name, message, filename}, apiKey);
-
-                if (insertData.success) {
+            const uploadRes = await fetchAPI.upload(formData);
+            console.log('(fecthAPI > upload) response : ', uploadRes);
+            if (uploadRes.success) {
+                console.log(uploadRes.filename);
+                filename = uploadRes.filename;
+                console.log(filename);
+                console.log('filename : ', filename);
+                const createDataRes = await fetchAPI.createData({name, message, filename});
+                console.log('(fetchAPI > createData) response : ', createDataRes)
+                if (createDataRes.success) {
                     Swal.close();
-                    swalAlert('Inserted success', insertData.messageStatus.thai, 'success');
+                    swalAlert('Inserted success', createDataRes.successMessage.thai, 'success');
 
-                    message = "";
-                    name = "";
-                    fileInput.value = "";
+                    resetValue();
                     loadContent();
                 } else {
                     Swal.close();
-                    swalAlert('Failed', insertData.messageStatus.thai, 'error');
+                    swalAlert('Failed', createDataRes.errorMessage.thai, 'error');
                 }
             }
         } else {
+            console.log('No file input');
             // call api create data
-            const insertData = await createData({name, message, filename}, apiKey);
-            if (insertData.success) {
+            const createDataRes = await fetchAPI.createData({name, message, filename});
+            console.log('(fetchAPI > createData) response : ', createDataRes);
+            if (createDataRes.success) {
                 Swal.close();
-                swalAlert('Inserted success', insertData.messageStatus.thai, 'success');
+                swalAlert('Inserted success', createDataRes.successMessage.thai, 'success');
                 
-                message = "";
-                name = "";
-                fileInput.value = "";
+                resetValue();
                 loadContent();
             } else {
                 Swal.close();
-                swalAlert('Failed', insertData.messageStatus.thai, 'error');
+                swalAlert('Failed', createDataRes.errorMessage.thai, 'error');
             }
         }
     } catch (error) {
+        console.log('error : ', error);
         Swal.close();
-        swalAlert('Failed', insertData.messageStatus.thai, 'error');
+        swalAlert('Failed', 'Cant inserted', 'error');
     }
 })
